@@ -1,14 +1,16 @@
 import React from "react";
-import { HomeWrapper, Header, MainWrapper } from "./Home.style";
+import { HomeWrapper, Header, MainWrapper ,Title} from "./Home.style";
 import Section from "../Section";
 
 const Home: React.FC = () => {
   return (
     <HomeWrapper>
-      <Header />
+      <Header>
+        <Title>Customer Title</Title>
+      </Header>
       <MainWrapper>
-        <Section />
-        <Section />
+        <Section title={"Customers"}/>
+        <Section title={"Feedback"}/>
       </MainWrapper>
     </HomeWrapper>
   );
