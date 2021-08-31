@@ -1,11 +1,11 @@
 import React, { useReducer, createContext, Dispatch } from "react";
 import reducer from "../reducer";
 import { initState, InitialStateType } from "./initState";
-import { callActions } from "../reducer/actions";
+import { actions } from "../reducer/actions";
 
 const AppContext = createContext<{
   state: InitialStateType;
-  dispatch: Dispatch<callActions>;
+  dispatch: Dispatch<actions>;
 }>({
   state: initState,
   dispatch: () => null,

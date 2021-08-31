@@ -11,12 +11,12 @@ export interface addcutsomer {
 
 export interface addfeedback {
   type: actionType.ADD_FEEDBACK;
-  payload: { id: string; feedback: string };
+  payload: { feedback: string };
 }
 
 
 
-export type callActions =
+export type actions =
   | addcutsomer
   | addfeedback
 

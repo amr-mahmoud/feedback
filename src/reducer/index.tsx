@@ -1,10 +1,10 @@
 import shortid from "shortid";
-import { callActions, actionType } from "./actions";
+import { actions, actionType } from "./actions";
 import { InitialStateType } from "../providers/initState";
 
-const reducer = (state: InitialStateType, action: callActions) => {
+const reducer = (state: InitialStateType, action: actions) => {
 
-  const {customers}=state
+  const {customers,selectedCustomer}=state
   switch (action.type) {
 
     case actionType.ADD_CUSTOMER: {
@@ -20,11 +20,11 @@ const reducer = (state: InitialStateType, action: callActions) => {
 
     case actionType.ADD_FEEDBACK: {
       
-      const {id,feedback} = action.payload
+      const {feedback} = action.payload
 
       const newCustomers=[...customers].map(customer=>{
         const {id:customerId,feedbacks,name}=customer
-        return id === customer.id ? { id:customerId,name,feedbacks:[feedback,...feedbacks]}
+        return selectedCustomer === customer.id ? { id:customerId,name,feedbacks:[feedback,...feedbacks]}
        : customer
       })
       
