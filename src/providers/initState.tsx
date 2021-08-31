@@ -1,7 +1,7 @@
 export type CustomerType = {
   id: string;
   name: string;
-  feedbacks: [string];
+  feedbacks: string[];
 };
 
 export type InitialStateType = {

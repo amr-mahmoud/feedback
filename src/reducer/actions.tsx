@@ -6,7 +6,7 @@ export enum actionType {
 
 export interface addcutsomer {
   type: actionType.ADD_CUSTOMER;
-  payload: { name:string };
+  payload: { name:string} ;
 }
 
 export interface addfeedback {
