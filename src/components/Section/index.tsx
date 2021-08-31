@@ -1,4 +1,4 @@
-import React, { FC, useRef, useContext, useState,useEffect } from "react";
+import React, { FC, useRef, useContext, useState, useEffect } from "react";
 import {
   SectionWrapper,
   SectionTitle,
@@ -17,51 +17,44 @@ interface SectionProps {
   title: string;
 }
 
-
-
-
 const Section: FC<SectionProps> = (props): JSX.Element => {
   const [showInput, SetShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { state, dispatch } = useContext(AppContext);
   const { customers, selectedCustomer } = state;
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null);
   const { title } = props;
 
-
-  useEffect(()=>{
-    inputRef && inputRef.current&&inputRef.current.focus();
-  },[showInput])
-
+  useEffect(() => {
+    inputRef && inputRef.current && inputRef.current.focus();
+  }, [showInput]);
 
   const addOnClickhandler: Function = () => {
     SetShowInput(true);
   };
 
   const onInputEnter: Function = (e: KeyboardEvent) => {
-    if (e.key === "Enter"){
-    if( inputValue.length > 0) {
-      title === "Customers"
-        ? dispatch({
-            type: actionType.ADD_CUSTOMER,
-            payload: { name: inputValue },
-          })
-        : dispatch({
-            type: actionType.ADD_FEEDBACK,
-            payload: { feedback: inputValue },
-          });
+    if (e.key === "Enter") {
+      if (inputValue.length > 0) {
+        title === "Customers"
+          ? dispatch({
+              type: actionType.ADD_CUSTOMER,
+              payload: { name: inputValue },
+            })
+          : dispatch({
+              type: actionType.ADD_FEEDBACK,
+              payload: { feedback: inputValue },
+            });
+      }
+      SetShowInput(false);
+      setInputValue("");
     }
-    SetShowInput(false);
-    setInputValue("");
   };
-  }
-
 
   const feedbacks = customers.find(
     (customer) => customer.id === selectedCustomer
   )?.feedbacks;
 
- 
   const customerOnlickHandler: Function = (id: string) =>
     dispatch({ type: actionType.SELECT_CUSTOMER, payload: { id } });
 
@@ -88,7 +81,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
                 <StyledListItem
                   key={id}
                   onClick={() => customerOnlickHandler(id)}
-                  selected ={id ===selectedCustomer}
+                  selected={id === selectedCustomer}
                   selectable={true}
                 >
                   <label>{name}</label>
@@ -99,7 +92,11 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
             )
           ) : feedbacks && feedbacks.length > 0 ? (
             feedbacks.map((feedback) => (
-              <StyledListItem key={feedback} selected={false} selectable={false}>
+              <StyledListItem
+                key={feedback}
+                selected={false}
+                selectable={false}
+              >
                 <label>{feedback}</label>
               </StyledListItem>
             ))
