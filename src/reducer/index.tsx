@@ -27,11 +27,21 @@ const reducer = (state: InitialStateType, action: actions) => {
         return selectedCustomer === customer.id ? { id:customerId,name,feedbacks:[feedback,...feedbacks]}
        : customer
       })
-      
-      
+       
       return {
         ...state,
         customers:newCustomers
+      };
+    }
+
+
+    case actionType.SELECT_CUSTOMER: {
+    
+      const {id} = action.payload
+       
+      return {
+        ...state,
+        selectedCustomer:id
       };
     }
     default:

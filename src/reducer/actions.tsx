@@ -1,7 +1,7 @@
 export enum actionType {
   ADD_FEEDBACK = "ADD_FEEDBACK",
   ADD_CUSTOMER = "ADD_CUSTOMER",
-
+  SELECT_CUSTOMER="SELECT_CUSTOMER"
 }
 
 export interface addcutsomer {
@@ -14,9 +14,13 @@ export interface addfeedback {
   payload: { feedback: string };
 }
 
+export interface selectCustomer {
+  type: actionType.SELECT_CUSTOMER;
+  payload: { id: string };
+}
 
 
 export type actions =
   | addcutsomer
-  | addfeedback
+  | addfeedback|selectCustomer
 
