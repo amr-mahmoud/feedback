@@ -21,13 +21,16 @@ height: 25px;
 margin: auto 0;
 `
 export const StyledInput=styled.input`
-width: 100%;
+
 height: 30px;
+width: 98%;
+border-radius: 0;
+
 `
 
 export const SectionContent= styled.div`
 flex:1;
-border:2px solid red;
+border:1px solid black;
 flex-direction:column;
 `
 
@@ -35,3 +38,7 @@ flex-direction:column;
 export const SectionTitle= styled.h3`
 margin: 10px 0
 `
+
+export const StyledListItem=styled.li``
+
+export const StyledUl=styled.ul``
