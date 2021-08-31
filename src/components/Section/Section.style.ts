@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+interface itemProps {
+   selected: boolean;
+   selectable:boolean;
+}
+
+
 export const SectionWrapper = styled.div`
 flex:1;
 display:flex;
@@ -21,7 +27,7 @@ export const AddButtton = styled.button`
 export const StyledInput = styled.input`
   font-size: 13px;
   height: 30px;
-  width: 99%;
+  width: 98%;
   border-radius: 0;
   border: none;
   border-bottom: 1px solid black;
@@ -29,16 +35,18 @@ export const StyledInput = styled.input`
 `;
 
 export const SectionContent = styled.div`
-  flex: 1;
+display:flex;  
+flex: 1;
   border: 1px solid black;
   flex-direction: column;
+  
 `;
 
 export const SectionTitle = styled.h3`
   margin: 10px 0;
 `;
 
-export const StyledListItem = styled.li`
+export const StyledListItem = styled.li<itemProps>`
   font-size: 13px;
   display: flex;
   height: 30px;
@@ -46,10 +54,12 @@ export const StyledListItem = styled.li`
   label {
     margin: auto 5px;
   }
-  cursor: pointer;
+  cursor: ${(props) => (props.selectable &&"pointer")};
+  background: ${(props) => (props.selected ?"#32ef32":"#fffffff")};
   &:hover {
-    background: yellow;
+    background:${(props) => (!props.selected &&props.selectable &&"yellow")};
   }
+
 `;
 
 export const StyledUl = styled.ul`
@@ -57,8 +67,12 @@ export const StyledUl = styled.ul`
   cursor: pointer;
   padding: 0;
   margin: 0;
+  flex: 1;
+  display:flex;
+  flex-direction:column;
 `;
 
 export const NotifyLabel = styled.label`
   margin: auto;
+  font-weight:bold;
 `;

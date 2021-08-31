@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useContext, useState } from "react";
+import React, { FC, useRef, useContext, useState,useEffect } from "react";
 import {
   SectionWrapper,
   SectionTitle,
@@ -17,22 +17,30 @@ interface SectionProps {
   title: string;
 }
 
+
+
+
 const Section: FC<SectionProps> = (props): JSX.Element => {
   const [showInput, SetShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-
   const { state, dispatch } = useContext(AppContext);
   const { customers, selectedCustomer } = state;
-
+  const inputRef = useRef<HTMLInputElement>(null)
   const { title } = props;
-  console.log(state, title);
+
+
+  useEffect(()=>{
+    inputRef && inputRef.current&&inputRef.current.focus();
+  },[showInput])
+
 
   const addOnClickhandler: Function = () => {
     SetShowInput(true);
   };
 
   const onInputEnter: Function = (e: KeyboardEvent) => {
-    if (e.key === "Enter" && inputValue.length > 0) {
+    if (e.key === "Enter"){
+    if( inputValue.length > 0) {
       title === "Customers"
         ? dispatch({
             type: actionType.ADD_CUSTOMER,
@@ -42,17 +50,18 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
             type: actionType.ADD_FEEDBACK,
             payload: { feedback: inputValue },
           });
-
-      SetShowInput(false);
-      setInputValue("");
     }
+    SetShowInput(false);
+    setInputValue("");
   };
+  }
+
 
   const feedbacks = customers.find(
     (customer) => customer.id === selectedCustomer
   )?.feedbacks;
 
-  console.log("feedbacks", feedbacks);
+ 
   const customerOnlickHandler: Function = (id: string) =>
     dispatch({ type: actionType.SELECT_CUSTOMER, payload: { id } });
 
@@ -66,6 +75,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
         {showInput && (
           <StyledInput
             tabIndex={0}
+            ref={inputRef}
             onKeyDown={(e) => onInputEnter(e)}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -78,6 +88,8 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
                 <StyledListItem
                   key={id}
                   onClick={() => customerOnlickHandler(id)}
+                  selected ={id ===selectedCustomer}
+                  selectable={true}
                 >
                   <label>{name}</label>
                 </StyledListItem>
@@ -87,7 +99,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
             )
           ) : feedbacks && feedbacks.length > 0 ? (
             feedbacks.map((feedback) => (
-              <StyledListItem key={feedback}>
+              <StyledListItem key={feedback} selected={false} selectable={false}>
                 <label>{feedback}</label>
               </StyledListItem>
             ))
