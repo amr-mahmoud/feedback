@@ -1,4 +1,4 @@
-import React, { FC, useRef, useContext, useState, useEffect } from "react";
+import  { FC, useRef, useContext, useState, useEffect } from "react";
 import {
   SectionWrapper,
   SectionTitle,
@@ -12,6 +12,8 @@ import {
 } from "./Section.style";
 import { AppContext } from "../../providers";
 import { actionType } from "../../reducer/actions";
+import useOutsideAlerter from "../../hooks/useOutsideAlerter"
+
 
 interface SectionProps {
   title: string;
@@ -24,6 +26,14 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
   const { customers, selectedCustomer } = state;
   const inputRef = useRef<HTMLInputElement>(null);
   const { title } = props;
+  
+  const closeInput:Function =() => {
+    SetShowInput(false);
+    setInputValue("");
+  }
+
+  useOutsideAlerter(inputRef, closeInput, `input${title}`);
+
 
   useEffect(() => {
     inputRef && inputRef.current && inputRef.current.focus();
@@ -34,8 +44,8 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
   };
 
   const onInputEnter: Function = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
-      if (inputValue.length > 0) {
+    if( e.key === "Escape" || e.key === "Enter" ){
+      if (e.key === "Enter" && inputValue.length > 0) {
         title === "Customers"
           ? dispatch({
               type: actionType.ADD_CUSTOMER,
@@ -46,8 +56,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
               payload: { feedback: inputValue },
             });
       }
-      SetShowInput(false);
-      setInputValue("");
+      closeInput()
     }
   };
 
@@ -68,6 +77,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
         {showInput && (
           <StyledInput
             tabIndex={0}
+            id={`input${title}`}
             ref={inputRef}
             onKeyDown={(e) => onInputEnter(e)}
             value={inputValue}
@@ -80,6 +90,7 @@ const Section: FC<SectionProps> = (props): JSX.Element => {
               customers.map(({ name, id }) => (
                 <StyledListItem
                   key={id}
+           
                   onClick={() => customerOnlickHandler(id)}
                   selected={id === selectedCustomer}
                   selectable={true}
