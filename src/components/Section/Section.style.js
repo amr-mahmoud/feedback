@@ -20,6 +20,10 @@ export const AddButtton = styled.button`
 height: 25px;
 margin: auto 0;
 `
+export const StyledInput=styled.input`
+width: 100%;
+height: 30px;
+`
 
 export const SectionContent= styled.div`
 flex:1;
