@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
 interface itemProps {
-   selected: boolean;
-   selectable:boolean;
+  selected: boolean;
+  selectable: boolean;
 }
 
+export const SearchInput = styled.input`
+  width: 50%;
+  margin: auto;
+  border-radius: 5px;
+`;
 
 export const SectionWrapper = styled.div`
-flex:1;
-display:flex;
-flex-direction:column;
-height: 100%;
-overflow: hidden;
-overflow-y: scroll;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 `;
 
 export const SectionHeader = styled.header`
@@ -37,11 +42,10 @@ export const StyledInput = styled.input`
 `;
 
 export const SectionContent = styled.div`
-  display:flex;  
+  display: flex;
   flex: 1;
   border: 1px solid black;
   flex-direction: column;
-
 `;
 
 export const SectionTitle = styled.h3`
@@ -60,12 +64,19 @@ export const StyledListItem = styled.li<itemProps>`
     text-overflow: ellipsis;
     line-height: 2;
   }
-  cursor: ${(props) => (props.selectable &&"pointer")};
-  background: ${(props) => (props.selected ?"#32ef32":"#fffffff")};
+  cursor: ${(props) => props.selectable && "pointer"};
+  background: ${(props) => (props.selected ? "#32ef32" : "#fffffff")};
   &:hover {
-    background:${(props) => (!props.selected &&props.selectable &&"yellow")};
+    background: ${(props) => !props.selected && props.selectable && "yellow"};
   }
 
+  span.highlighted {
+    background: yellow;
+  }
+
+  div.search-div {
+    margin: auto 5px;
+  }
 `;
 
 export const StyledUl = styled.ul`
@@ -74,12 +85,11 @@ export const StyledUl = styled.ul`
   padding: 0;
   margin: 0;
   flex: 1;
-  display:flex;
-  flex-direction:column;
-
+  display: flex;
+  flex-direction: column;
 `;
 
 export const NotifyLabel = styled.label`
   margin: auto;
-  font-weight:bold;
+  font-weight: bold;
 `;
