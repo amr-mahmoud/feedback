@@ -9,8 +9,10 @@ interface itemProps {
 export const SectionWrapper = styled.div`
 flex:1;
 display:flex;
-flex-direction:column;s
-
+flex-direction:column;
+height: 100%;
+overflow: hidden;
+overflow-y: scroll;
 `;
 
 export const SectionHeader = styled.header`
@@ -35,11 +37,11 @@ export const StyledInput = styled.input`
 `;
 
 export const SectionContent = styled.div`
-display:flex;  
-flex: 1;
+  display:flex;  
+  flex: 1;
   border: 1px solid black;
   flex-direction: column;
-  
+
 `;
 
 export const SectionTitle = styled.h3`
@@ -53,6 +55,10 @@ export const StyledListItem = styled.li<itemProps>`
   border-bottom: 1px solid black;
   label {
     margin: auto 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 2;
   }
   cursor: ${(props) => (props.selectable &&"pointer")};
   background: ${(props) => (props.selected ?"#32ef32":"#fffffff")};
@@ -70,6 +76,7 @@ export const StyledUl = styled.ul`
   flex: 1;
   display:flex;
   flex-direction:column;
+
 `;
 
 export const NotifyLabel = styled.label`

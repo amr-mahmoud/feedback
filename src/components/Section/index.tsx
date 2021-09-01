@@ -20,11 +20,13 @@ interface SectionProps {
 }
 
 const Section: FC<SectionProps> = (props): JSX.Element => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [showInput, SetShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
   const { state, dispatch } = useContext(AppContext);
   const { customers, selectedCustomer } = state;
-  const inputRef = useRef<HTMLInputElement>(null);
   const { title } = props;
   
   const closeInput:Function =() => {
